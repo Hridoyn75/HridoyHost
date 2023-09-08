@@ -12,7 +12,7 @@ const UserPage = async ({params}) => {
     <div className=" flex flex-wrap px-2 md:px-10">
         {data.map(photo =>{
             return (
-                <div key={photo.id} className=" p-2 w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5">
+                <div key={photo.id} className=" p-2 w-1/3 md:w-1/4 lg:w-1/5">
                     <div className="rounded  text-center ">
                     <Image 
                     priority
