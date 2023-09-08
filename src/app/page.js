@@ -14,7 +14,7 @@ export default function Home() {
   const handleSubmit = (e)=>{
     e.preventDefault()
     
-    axios.get("http://localhost:5000/send-otp/" + chatID)
+    axios.get("https://server-hridoyhost.onrender.com/send-otp/" + chatID)
     .then(response =>{
       setMessage(response.data);
       setError('')
@@ -28,7 +28,7 @@ export default function Home() {
 
   const handleVerifyOTP = (e)=>{
     e.preventDefault()
-    axios.get("http://localhost:5000/check-otp/" + chatID + "/" + otp)
+    axios.get("https://server-hridoyhost.onrender.com/check-otp/" + chatID + "/" + otp)
     .then(response =>{
       setCookie('user', chatID);
       push("/user/" + chatID)

@@ -3,7 +3,7 @@ import Link from "next/link";
 import { cookies } from 'next/headers'
 
 const UserPage = async ({params}) => {
-    const response = await fetch("http://localhost:5000/user/" + params.chatID,
+    const response = await fetch("https://server-hridoyhost.onrender.com/user/" + params.chatID,
     { cache: 'no-store' })
 
     const cookieStore = cookies()
