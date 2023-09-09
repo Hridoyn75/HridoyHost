@@ -4,8 +4,9 @@ import { cookies } from 'next/headers'
 import { toFormData } from "axios";
 import Image from "next/image";
 
-const UserPage = async ({params}) => {
-    const response = await fetch( process.env.NEXT_PUBLIC_API_URL + "/folders/" + params.chatID,
+const FolderPage = async ({params}) => {
+    const response = await fetch( process.env.NEXT_PUBLIC_API_URL + "/folder/"
+     + params.folderName + "/" + params.chatID,
     { cache: 'no-store' })
 
     const cookieStore = cookies()
@@ -14,27 +15,21 @@ const UserPage = async ({params}) => {
     if(authUser){
         valid = authUser.value === params.chatID;
     }
-
     const data = await response.json();
     
     return (
     <>
-    {valid && <h1 className=" text-center text-3xl py-8">All Your Memories🚀</h1>}
+    {valid && <h1 className=" text-center text-3xl py-8">Folder Name: {params.folderName}🚀</h1>}
+    {valid && <Link href='/' className=" bg-slate-900 rounded-lg p-2 absolute top-5 left-5">Back</Link>}
     <div className=" flex flex-wrap px-2 md:px-10">
-        {valid && data.map(folder =>{
+        {valid && data.map(photo =>{
             return (
-                <div key={folder.id} className=" p-2 md:p-4 w-1/4 md:w-1/6 lg:w-[10%]">
-                    <Link href={"/user/" + params.chatID + "/" + folder.name}>
-                        <Image 
-                        src='/folder.svg'
-                        width={500}
-                        height={500}
-                        alt="Folder Icon" />
-                        <p className=" text-slate-900 font-bold  overflow-hidden">{folder.name}</p>
-                    </Link>
+                <div key={photo.id} className=" p-2 w-1/3 md:w-1/4 lg:w-1/5">
+                    <Card url={photo.url} />
                 </div>
             )
         })}
+        {valid && data.length === 0 && <p className=" text-slate-700 text-2xl">This folder is empty!</p>}
     </div>
     {
         !valid && 
@@ -49,4 +44,4 @@ const UserPage = async ({params}) => {
   )
 }
 
-export default UserPage
+export default FolderPage

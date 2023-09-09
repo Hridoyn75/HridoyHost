@@ -1,8 +1,8 @@
 'use client'
 import axios from 'axios';
 import { useRouter } from 'next/navigation'
-import { useState } from 'react';
-import { setCookie } from 'cookies-next';
+import { useEffect, useState } from 'react';
+import { setCookie, getCookies  } from 'cookies-next';
 
 export default function Home() {
   const { push } = useRouter();
@@ -10,11 +10,19 @@ export default function Home() {
   const [otp, setOtp] = useState('')
   const [ error, setError ] = useState('')
   const [ message, setMessage ] = useState('')
+  const authUser = getCookies('user').user;
+  
+  // useEffect(()=>{
+  //   if(authUser){
+  //     push('/user/' + authUser)
+  //   }
+  // },[])
+
 
   const handleSubmit = (e)=>{
     e.preventDefault()
     
-    axios.get("https://server-hridoyhost.onrender.com/send-otp/" + chatID)
+    axios.get(process.env.NEXT_PUBLIC_API_URL+ "/send-otp/" + chatID)
     .then(response =>{
       setMessage(response.data);
       setError('')
@@ -27,8 +35,9 @@ export default function Home() {
   }
 
   const handleVerifyOTP = (e)=>{
+    console.log(process.env.NEXT_PUBLIC_API_URL);
     e.preventDefault()
-    axios.get("https://server-hridoyhost.onrender.com/check-otp/" + chatID + "/" + otp)
+    axios.get(process.env.NEXT_PUBLIC_API_URL + "/check-otp/" + chatID + "/" + otp)
     .then(response =>{
       setCookie('user', chatID);
       push("/user/" + chatID)
@@ -45,7 +54,7 @@ export default function Home() {
   return (
     <main className=" w-full h-screen flex flex-col justify-center items-center">
         
-        <form onSubmit={!message? handleSubmit : handleVerifyOTP}  className={` ${message ? "bg-yellow-500" : "bg-[#FF3D3D]"} rounded-lg p-10 pt-5 text-center flex flex-col justify-center gap-5`}>
+        <form onSubmit={!message? handleSubmit : handleVerifyOTP}  className={` ${message ? "bg-[#FF3D3D]" : "bg-yellow-500"} rounded-lg p-10 pt-5 text-center flex flex-col justify-center gap-5`}>
         <div>
           <h1 className=' text-2xl text-[#0D1F2D] font-bold'>HridoyHost</h1>
           <p className=' text-sm text-blue-950'>Unlimited spcae for your Memories</p>
