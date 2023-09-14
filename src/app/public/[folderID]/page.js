@@ -23,6 +23,7 @@ const PublicFolderPage = async({params}) => {
         <div className=' w-[500px] mx-auto text-center max-w-[90%] p-4 my-4 rounded bg-blue-900'>
             <h1 className=' text-2xl pb-1'>Folder Name: {info.name}</h1>
             <p className=' text-slate-300'>Owned By: {info.user}</p>
+            <p className=' text-slate-300'>chatID: *******{parseInt(info.chatid) % 1000}</p>
         </div>
     }
     <div className=" flex flex-wrap px-2 md:px-10">
