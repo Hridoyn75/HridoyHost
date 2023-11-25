@@ -6,4 +6,5 @@
 body{
   background-color: #5CACDD;
   color: white;
+  transition: all ease 0.3s;
 }

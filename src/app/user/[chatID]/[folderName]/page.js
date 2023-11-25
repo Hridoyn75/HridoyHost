@@ -1,10 +1,13 @@
 import Card from "@/components/card";
 import Link from "next/link";
 import { cookies } from 'next/headers'
-import { toFormData } from "axios";
-import Image from "next/image";
+import DeleteAll from "@/components/delete-all";
+
+
+
 
 const FolderPage = async ({params}) => {
+
     const response = await fetch( process.env.NEXT_PUBLIC_API_URL + "/folder/"
      + params.folderName + "/" + params.chatID,
     { cache: 'no-store' })
@@ -19,13 +22,16 @@ const FolderPage = async ({params}) => {
     
     return (
     <>
-    {valid && <h1 className=" text-center text-3xl py-8">Folder Name: {params.folderName}🚀</h1>}
+    {valid && <div className=" px-2 md:px-5 flex justify-between items-center">
+        <h1 className=" text-center text-3xl py-8">Folder Name: {params.folderName}🚀</h1>
+        <DeleteAll chatId={authUser.value} folderName={params.folderName}  />
+    </div>}
     {valid && <Link href='/' className=" bg-slate-900 rounded-lg p-2 absolute top-5 left-5">Back</Link>}
     <div className=" flex flex-wrap px-2 md:px-10">
         {valid && data.map(photo =>{
             return (
                 <div key={photo.id} className=" p-2 w-1/3 md:w-1/4 lg:w-1/5">
-                    <Card url={photo.url} />
+                    <Card url={photo.url} id={photo.id} />
                 </div>
             )
         })}

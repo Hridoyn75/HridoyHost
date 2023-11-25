@@ -1,7 +1,5 @@
-import Card from "@/components/card";
 import Link from "next/link";
 import { cookies } from 'next/headers'
-import { toFormData } from "axios";
 import Image from "next/image";
 
 const UserPage = async ({params}) => {

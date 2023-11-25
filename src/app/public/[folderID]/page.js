@@ -20,7 +20,7 @@ const PublicFolderPage = async({params}) => {
     <>
     {
         data.length !== 0 &&
-        <div className=' w-[500px] mx-auto text-center max-w-[90%] p-4 my-4 rounded bg-blue-900'>
+        <div className=' border border-slate-900 w-[500px] mx-auto text-center max-w-[90%] text-slate-900 p-4 my-4 rounded bg-yellow-600'>
             <h1 className=' text-2xl pb-1'>Folder Name: {info.name}</h1>
             <p className=' text-slate-300'>Owned By: {info.user}</p>
             <p className=' text-slate-300'>chatID: *******{parseInt(info.chatid) % 1000}</p>
